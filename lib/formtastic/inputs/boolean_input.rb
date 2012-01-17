@@ -68,7 +68,9 @@ module Formtastic
       end
 
       def check_box_html
-        template.check_box_tag("#{object_name}[#{method}]", checked_value, checked?, input_html_options)
+        template.content_tag(:span, :class => 'checkbox') do
+          template.check_box_tag("#{object_name}[#{method}]", checked_value, checked?, input_html_options)
+        end  
       end
 
       def unchecked_value

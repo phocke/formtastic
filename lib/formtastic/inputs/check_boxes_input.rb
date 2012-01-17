@@ -125,22 +125,26 @@ module Formtastic
 
       def check_box_with_hidden_input(choice)
         value = choice_value(choice)
-        builder.check_box(
-          association_primary_key || method,
-          input_html_options.merge(:id => choice_input_dom_id(choice), :name => input_name, :disabled => disabled?(value), :required => false),
-          value,
-          unchecked_value
-        )
+        template.content_tag(:span, :class => 'checkbox') do
+          builder.check_box(
+            association_primary_key || method,
+            input_html_options.merge(:id => choice_input_dom_id(choice), :name => input_name, :disabled => disabled?(value), :required => false),
+            value,
+            unchecked_value
+          )
+        end
       end
 
       def check_box_without_hidden_input(choice)
         value = choice_value(choice)
-        template.check_box_tag(
-          input_name,
-          value,
-          checked?(value),
-          input_html_options.merge(:id => choice_input_dom_id(choice), :disabled => disabled?(value), :required => false)
-        )
+        template.content_tag(:span, :class => 'checkbox') do
+          template.check_box_tag(
+            input_name,
+            value,
+            checked?(value),
+            input_html_options.merge(:id => choice_input_dom_id(choice), :disabled => disabled?(value), :required => false)
+          )
+        end
       end
 
       def checked?(value)
